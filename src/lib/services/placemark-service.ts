@@ -1,8 +1,6 @@
-// src/lib/services/placemark-service.ts
-import bcrypt from 'bcrypt';
-import { userStore } from '$lib/models/mongo/user-store';
 import type { Session, User } from "$lib/types/placemark-types";
 import type { Trektype, Placemark } from "$lib/types/placemark-types";
+import { userStore } from "$lib/models/mongo/user-store";
 import { placemarkStore } from "$lib/models/mongo/placemark-store";
 import { trektypeStore } from "$lib/models/mongo/trektype-store";
 
@@ -20,7 +18,7 @@ export const placemarkService = {
   async login(email: string, password: string): Promise<Session | null> {
     try {
       const user = await userStore.findBy(email);
-      if (user !== null && await bcrypt.compare(password, user.password)) {
+      if (user !== null && user.password === password) {
         const session = {
           name: `${user.firstName} ${user.lastName}`,
           token: user._id!.toString(),

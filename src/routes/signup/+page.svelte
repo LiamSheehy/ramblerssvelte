@@ -1,39 +1,25 @@
-<!-- src/routes/signup/SignupForm.svelte -->
 <script lang="ts">
-  import { goto } from '$app/navigation';
-  import UserCredentials from '$lib/ui/UserCredentials.svelte';
-  import UserDetails from '$lib/ui/UserDetails.svelte';
-  import Message from '$lib/ui/Message.svelte';
-
-  let firstName = '';
-  let lastName = '';
-  let email = '';
-  let password = '';
-  let message = '';
-
-  async function signup() {
-    const response = await fetch('/signup', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ firstName, lastName, email, password })
-    });
-
-    if (response.ok) {
-      goto('/trails');
-    } else {
-      message = 'Error Trying to sign up';
-    }
-  }
+  import SignupForm from "./SignupForm.svelte";
 </script>
 
-{#if message}
-  <Message {message} />
-{/if}
-<form on:submit|preventDefault={signup}>
-  <UserDetails bind:firstName bind:lastName />
-  <UserCredentials bind:email bind:password />
-  <button class="button is-success is-fullwidth">Create Account</button>
-  <br />
-</form>
+<section class="hero is-fullheight is-default is-bold">
+  <div class="hero-head"></div>
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-vcentered">
+        <div class="column is-5">
+          <h1 class="title has-text-centered">Signup to Rustic Ramblers</h1>
+          <div class="box">
+            <SignupForm></SignupForm>
+            <p class="has-text-centered">Already have an account? <a href="/login" data-cy="login-redirect">Login Here</a></p>
+          </div>
+        </div>
+        <div class="column is-6 is-offset-1">
+          <figure class="image is-4by3">
+            <img class="object-fit" src="/greenway.png" alt="greenway" />
+          </figure>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

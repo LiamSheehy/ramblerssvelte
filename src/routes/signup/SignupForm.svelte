@@ -1,29 +1,21 @@
-<!-- src/routes/signup/SignupForm.svelte -->
 <script lang="ts">
-  import { goto } from '$app/navigation';
-  import UserCredentials from '$lib/ui/UserCredentials.svelte';
-  import UserDetails from '$lib/ui/UserDetails.svelte';
-  import Message from '$lib/ui/Message.svelte';
+  import { goto } from "$app/navigation";
+  import UserCredentials from "$lib/ui/UserCredentials.svelte";
+  import UserDetails from "$lib/ui/UserDetails.svelte";
+  import Message from "$lib/ui/Message.svelte";
 
-  let firstName = '';
-  let lastName = '';
-  let email = '';
-  let password = '';
-  let message = '';
+  let firstName = "";
+  let lastName = "";
+  let email = "";
+  let password = "";
+  let message = "";
 
   async function signup() {
-    const response = await fetch('/signup', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ firstName, lastName, email, password })
-    });
-
-    if (response.ok) {
-      goto('/trails');
+    const success = false;
+    if (success) {
+      goto("/trails");
     } else {
-      message = 'Error Trying to sign up';
+      message = "Error Trying to sign up";
     }
   }
 </script>

@@ -2,22 +2,16 @@ import { dev } from "$app/environment";
 import { placemarkService } from "$lib/services/placemark-service";
 import { currentSession } from "$lib/stores.js";
 import { redirect } from "@sveltejs/kit";
-import DOMPurify from 'dompurify';
 
 export const actions = {
   login: async ({ request, cookies }) => {
     const form = await request.formData();
-    let email = form.get("email") as string;
-    let password = form.get("password") as string;
-
-    // Sanitize email and password fields using DOMPurify
-    email = DOMPurify.sanitize(email);
-    password = DOMPurify.sanitize(password);
-
+    const email = form.get("email") as string;
+    const password = form.get("password") as string;
     if (email === "" || password === "") {
       throw redirect(307, "/");
     } else {
-      console.log(`Attempting to log in email: ${email} with password: ${password}`);
+      console.log(`attemting to log in email: ${email} with password: ${password}`);
       const session = await placemarkService.login(email, password);
 
       if (session) {
